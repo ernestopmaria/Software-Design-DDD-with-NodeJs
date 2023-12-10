@@ -1,17 +1,21 @@
+import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository'
 import { AnswerQuestionUseCase } from './answer-question'
-import { AnswersRepository } from '../repositories/answers-repository'
-import { Answer } from '@/domain/enterprise/entities/answer'
 
-const fakeAnswerRepository: AnswersRepository = {
-  create: async (answer: Answer) => {},
-}
+let inMemoryAnswersRepository: InMemoryAnswersRepository
+let sut: AnswerQuestionUseCase
 
-test('create an answer', async () => {
-  const answerQuestion = new AnswerQuestionUseCase(fakeAnswerRepository)
-  const answer = await answerQuestion.execute({
-    questionId: '1',
-    instructorId: '1',
-    content: 'nova resposta',
+describe('Create a question', () => {
+  beforeEach(() => {
+    inMemoryAnswersRepository = new InMemoryAnswersRepository(),
+      sut = new AnswerQuestionUseCase(inMemoryAnswersRepository)
   })
-  expect(answer.content).toEqual('nova resposta')
+  it('it should be able to create a question', async () => {
+    const {answer} = await sut.execute({
+      instructorId: '1',
+      questionId: '2',
+      content: 'Qual e o melhor pais para se viver?'
+    })
+    expect(answer.id).toBeTruthy()
+    expect(inMemoryAnswersRepository.items[0].id).toEqual(answer.id)
+  })
 })

@@ -1,17 +1,23 @@
-import { QuestionRepository } from '../repositories/question-repository'
-import { Question } from '@/domain/enterprise/entities/question'
+import { InMemoryQuestionRepository } from 'test/repositories/in-memory-questions-repository'
 import { CreateQuestionUseCase } from './create-question'
+import { makeQuestion } from 'test/factories/make-question'
 
-const fakeQuestionRepository: QuestionRepository = {
-  create: async (question: Question) => {},
-}
+let inMemoryQuestionRepository: InMemoryQuestionRepository
+let sut: CreateQuestionUseCase
 
-test('create an question', async () => {
-  const createQuestion = new CreateQuestionUseCase(fakeQuestionRepository)
-  const { question } = await createQuestion.execute({
-    title: 'Melhor pais',
-    authorId: '1',
-    content: 'Qual e o melhor pais para se viver?',
+describe('Create a question', () => {
+  beforeEach(async () => {
+    inMemoryQuestionRepository = new InMemoryQuestionRepository(),
+      sut = new CreateQuestionUseCase(inMemoryQuestionRepository)
   })
-  expect(question.id).toBeTruthy()
+  it('it should be able to create a question', async () => {
+    const createQuestion = makeQuestion()
+    const { question } = await sut.execute({
+      title: 'Melhor pais',
+      authorId: '1',
+      content: 'Qual e o melhor pais para se viver?'
+    })
+    expect(question.id).toBeTruthy()
+    expect(inMemoryQuestionRepository.items[0].id).toEqual(question.id)
+  })
 })
