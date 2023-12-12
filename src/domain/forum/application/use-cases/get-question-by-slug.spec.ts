@@ -16,16 +16,17 @@ describe('get a question by slug', () => {
   })
   it('it should be able to get a question by slug', async () => {
 
-    const createQuestion =makeQuestion({
+    const newQuestion =makeQuestion({
       slug: Slug.create('melhor-pais')
     })
-    await inMemoryQuestionRepository.create(createQuestion)
+      
+    await inMemoryQuestionRepository.create(newQuestion)
     const { question } = await sut.execute({
       slug: 'melhor-pais'
 
     })
     expect(question.id).toBeTruthy()
-    expect(question.title).toEqual(createQuestion.title)
+    expect(question.title).toEqual(newQuestion.title)
 
   })
 })
