@@ -14,6 +14,7 @@ describe('get a question by slug', () => {
       createQuestionUseCase = new CreateQuestionUseCase(inMemoryQuestionRepository)
     sut = new GetQuestionBySlugUseCase(inMemoryQuestionRepository)
   })
+
   it('it should be able to get a question by slug', async () => {
 
     const newQuestion =makeQuestion({

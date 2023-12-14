@@ -2,7 +2,7 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
-interface AnswerProps {
+export interface  AnswerProps {
   authorId: UniqueEntityID
   questionId: UniqueEntityID
   content: string
@@ -22,16 +22,7 @@ export class Answer extends Entity<AnswerProps> {
   get content() {
     return this.props.content
   }
-
-  set content(content: string) {
-    this.props.content = content
-    this.touch()
-  }
-
-  get createdAt() {
-    return this.props.createdAt
-  }
-
+ 
   get updatedAt() {
     return this.props.updatedAt
   }
@@ -58,3 +49,5 @@ export class Answer extends Entity<AnswerProps> {
     return answer
   }
 }
+
+
