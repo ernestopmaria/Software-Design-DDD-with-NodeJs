@@ -3,6 +3,7 @@ import { AnswersRepository } from "@/domain/forum/application/repositories/answe
 
 
 export class InMemoryAnswersRepository implements AnswersRepository {
+
   public items: Answer[] = []
 
   async findById(id: string) {
@@ -15,6 +16,11 @@ export class InMemoryAnswersRepository implements AnswersRepository {
 
   async create(answer: Answer) {
     this.items.push(answer);
+  }
+
+  async save(answer: Answer) {
+    const itemIndex = this.items.findIndex((item) => item.id === answer.id)
+    this.items[itemIndex]= answer
   }
 
   async delete(answer: Answer): Promise<void> {
