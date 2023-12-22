@@ -5,6 +5,7 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { makeAnswer } from "test/factories/make-answer";
 import { InMemoryAnswerCommentsRepository } from "test/repositories/in-memory-answer-comments-repository";
 import { InMemoryAnswersRepository } from "test/repositories/in-memory-answers-repository";
+import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
 
 let inMemoryAnswerCommentRepository :InMemoryAnswerCommentsRepository
@@ -32,17 +33,17 @@ describe('Comment on Answer', async ()=>{
     const answer= makeAnswer({},
       new UniqueEntityID('answer-id')
       )   
-    await inMemoryAnswerRepository.create(answer)
-  
+    await inMemoryAnswerRepository.create(answer) 
 
-    expect(()=>{
-      return sut.execute({
+
+      const result = await sut.execute({
         answerId:'answer-false-id',
         authorId:answer.authorId.toString(),
         content:answer.content
-      })
-    }).rejects.toBeInstanceOf(Error)
-  }) 
+      })  
 
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(ResourceNotFoundError)
+  }) 
 
 })

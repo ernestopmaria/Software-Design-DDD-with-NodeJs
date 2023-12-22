@@ -28,7 +28,7 @@ export class CommentOnQuestionUseCase {
     const question = await this.questionsRepository.findById(questionId)
 
     if (!question) {
-      throw left(new ResourceNotFoundError())
+      return left(new ResourceNotFoundError())
     }
 
     const questionComment = QuestionComment.create({

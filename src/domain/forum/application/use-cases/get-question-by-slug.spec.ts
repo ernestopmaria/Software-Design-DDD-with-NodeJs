@@ -22,12 +22,15 @@ describe('get a question by slug', () => {
     })
       
     await inMemoryQuestionRepository.create(newQuestion)
-    const { question } = await sut.execute({
+    const result = await sut.execute({
       slug: 'melhor-pais'
+    })
+    expect(result.isRight()).toBe(true)
+    expect(result.value).toMatchObject({
+      question: expect.objectContaining({
+        title: newQuestion.title,
+      }),
 
     })
-    expect(question.id).toBeTruthy()
-    expect(question.title).toEqual(newQuestion.title)
-
   })
 })

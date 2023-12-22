@@ -12,12 +12,12 @@ describe('Create a question', () => {
   })
   it('it should be able to create a question', async () => {
     const createQuestion = makeQuestion()
-    const { question } = await sut.execute({
+    const result = await sut.execute({
       title: 'Melhor pais',
       authorId: '1',
       content: 'Qual e o melhor pais para se viver?'
     })
-    expect(question.id).toBeTruthy()
-    expect(inMemoryQuestionRepository.items[0].id).toEqual(question.id)
+    expect(result.isRight()).toBe(true)
+    expect(inMemoryQuestionRepository.items[0]).toEqual(result.value?.question)
   })
 })
