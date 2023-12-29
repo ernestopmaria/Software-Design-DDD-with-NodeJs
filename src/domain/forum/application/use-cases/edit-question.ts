@@ -37,7 +37,7 @@ export class EditQuestionUseCase {
       return left(new NotAllowedError())
     }
 
-    const currentQuestionAttachments = await this.questionAttachmentsRepository.findManByQuestionId(questionId)
+    const currentQuestionAttachments = await this.questionAttachmentsRepository.findManyByQuestionId(questionId)
 
     const questionAttachmentList = new QuestionAttachmentList(currentQuestionAttachments,)
 

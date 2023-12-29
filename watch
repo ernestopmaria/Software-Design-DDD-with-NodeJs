@@ -1,0 +1,36 @@
+
+> software-design-ddd-with-nodejs@1.0.0 test
+> vitest run
+
+
+ RUN  v0.34.6 /home/ernesto/Documents/git/Software-Design-DDD-with-NodeJs
+
+ ❯ src/core/entities/watched-list.spec.ts  (2 tests | 1 failed) 15ms
+   ❯ src/core/entities/watched-list.spec.ts > watched list > should be able to add new items to the list
+     → expected [Function getNewItems] to deeply equal 4
+ ✓ src/domain/forum/application/use-cases/create-question.spec.ts  (1 test) 19ms
+ ✓ src/domain/forum/application/use-cases/fetch-question-comments.spec.ts  (2 tests) 18ms
+ ✓ src/domain/forum/application/use-cases/fetch-recent-topics.spec.ts  (2 tests) 24ms
+ ❯ src/domain/forum/application/use-cases/edit-question.spec.ts  (2 tests | 1 failed) 26ms
+   ❯ src/domain/forum/application/use-cases/edit-question.spec.ts >  Edit question >  should be able to update a question
+     → Cannot read properties of undefined (reading 'findManByQuestionId')
+ ✓ src/domain/forum/application/use-cases/comment-on-question.spec.ts  (2 tests) 26ms
+ ✓ src/domain/forum/application/use-cases/fetch-answer-comments.spec.ts  (2 tests) 22ms
+ ✓ src/domain/forum/application/use-cases/delete-question-comment.spec.ts  (2 tests) 18ms
+ ✓ src/domain/forum/application/use-cases/fetch-question-answers.spec.ts  (2 tests) 20ms
+ ✓ src/domain/forum/application/use-cases/answer-question.spec.ts  (1 test) 7ms
+ ✓ src/domain/forum/application/use-cases/delete-answer-comment.spec.ts  (2 tests) 10ms
+ ✓ src/domain/forum/application/use-cases/delete-answer.spec.ts  (2 tests) 11ms
+ ✓ src/core/either.spec.ts  (2 tests) 10ms
+ ✓ src/domain/forum/application/use-cases/delete-question.spec.ts  (2 tests) 11ms
+ ✓ src/domain/forum/application/use-cases/comment-on-answer.spec.ts  (2 tests) 11ms
+ ✓ src/domain/forum/application/use-cases/choose-question-best-answer.spec.ts  (2 tests) 16ms
+ ✓ src/domain/enterprise/entities/value-objects/slug.spec.ts  (1 test) 7ms
+ ✓ src/domain/forum/application/use-cases/edit-answer.spec.ts  (2 tests) 8ms
+ ✓ src/domain/forum/application/use-cases/get-question-by-slug.spec.ts  (1 test) 6ms
+
+ Test Files  2 failed | 17 passed (19)
+      Tests  2 failed | 32 passed (34)
+   Start at  19:06:42
+   Duration  3.01s (transform 498ms, setup 2ms, collect 7.86s, tests 285ms, environment 5ms, prepare 2.84s)
+
