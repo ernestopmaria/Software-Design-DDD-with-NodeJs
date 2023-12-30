@@ -4,12 +4,16 @@ import { QuestionAttachmentsRepository } from "@/domain/forum/application/reposi
 export class InMemoryQuestionAttachmentsRepository implements QuestionAttachmentsRepository {
   public items: QuestionAttachment[] = []
 
+
+
   async findManyByQuestionId(questionId: string) {
     const questionAttachments = this.items.filter(item => item.id.toString() === questionId)
     return questionAttachments
   }
 
-
-
+  async deleteManyByQuestionId(questionId: string): Promise<void> {
+    const questionAttachments = this.items.filter((item) => item.questionId.toString() !== questionId)
+    this.items=questionAttachments
+  }
 
 }

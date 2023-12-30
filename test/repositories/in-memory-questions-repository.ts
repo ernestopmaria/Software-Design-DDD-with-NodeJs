@@ -1,16 +1,22 @@
 import { PaginationParams } from "@/core/repositories/pagination-params";
 import { Question } from "@/domain/enterprise/entities/question";
+import { QuestionAttachmentsRepository } from "@/domain/forum/application/repositories/question-attachments-repository";
 import { QuestionsRepository } from "@/domain/forum/application/repositories/questions-repository";
 
 
 
 export class InMemoryQuestionRepository implements QuestionsRepository {
-
   public items: Question[] = []
 
+  constructor(
+    private questionAttachmentRepository: QuestionAttachmentsRepository
+  ) {
 
-  async findById(id: string){
-    const question = this.items.find((item) => item.id.toString()=== id)
+  }
+
+
+  async findById(id: string) {
+    const question = this.items.find((item) => item.id.toString() === id)
     if (!question) {
       return null
     }
@@ -25,8 +31,8 @@ export class InMemoryQuestionRepository implements QuestionsRepository {
     return question
   }
 
-  async findManyRecent({ page }: PaginationParams){
-    const questions = this.items.sort((a, b)=> b.createdAt.getTime() - a.createdAt.getTime()).slice(( page - 1 ) * 20, page * 20)
+  async findManyRecent({ page }: PaginationParams) {
+    const questions = this.items.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()).slice((page - 1) * 20, page * 20)
 
     return questions
   }
@@ -36,13 +42,15 @@ export class InMemoryQuestionRepository implements QuestionsRepository {
   }
 
   async save(question: Question) {
-    const itemIndex = this.items.findIndex((item)=>item.id=== question.id)
+    const itemIndex = this.items.findIndex((item) => item.id === question.id)
     this.items[itemIndex] = question
   }
 
 
   async delete(question: Question): Promise<void> {
-    const itemIndex = this.items.findIndex((item)=>item.id=== question.id)
-this.items.splice(itemIndex, 1)
+    const itemIndex = this.items.findIndex((item) => item.id === question.id)
+    this.items.splice(itemIndex, 1)
+
+    this.questionAttachmentRepository.deleteManyByQuestionId(question.id.toString())
   }
 }
