@@ -6,16 +6,18 @@ import { makeAnswer } from "test/factories/make-answer";
 import { InMemoryAnswerCommentsRepository } from "test/repositories/in-memory-answer-comments-repository";
 import { InMemoryAnswersRepository } from "test/repositories/in-memory-answers-repository";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
+import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
 
-
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository
 let inMemoryAnswerCommentRepository :InMemoryAnswerCommentsRepository
 let inMemoryAnswerRepository: InMemoryAnswersRepository
 let sut : CommentOnAnswerUseCase
 
 describe('Comment on Answer', async ()=>{
   beforeEach( async()=>{
+     inMemoryAnswerAttachmentsRepository=  new InMemoryAnswerAttachmentsRepository()
     inMemoryAnswerCommentRepository  = new InMemoryAnswerCommentsRepository()
-    inMemoryAnswerRepository = new InMemoryAnswersRepository()
+    inMemoryAnswerRepository = new InMemoryAnswersRepository(inMemoryAnswerAttachmentsRepository)
     sut = new CommentOnAnswerUseCase(inMemoryAnswerRepository, inMemoryAnswerCommentRepository)
   })
   it ('Should be able to comment on answer',async ()=>{

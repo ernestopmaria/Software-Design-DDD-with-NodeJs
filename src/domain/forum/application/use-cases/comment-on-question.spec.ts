@@ -5,16 +5,18 @@ import { CommentOnQuestionUseCase } from "./comment-on-question";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { makeQuestion } from "test/factories/make-question";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
+import { InMemoryQuestionAttachmentsRepository } from "test/repositories/in-memory-question-attachments-repository";
 
-
+let inMemoryQuestionAttachmentsRepository :InMemoryQuestionAttachmentsRepository
 let inMemoryQuestionCommentRepository :InMemoryQuestionCommentsRepository
 let inMemoryQuestionRepository: InMemoryQuestionRepository
 let sut : CommentOnQuestionUseCase
 
 describe('Comment on Question', async ()=>{
   beforeEach( async()=>{
+     inMemoryQuestionAttachmentsRepository = new InMemoryQuestionAttachmentsRepository()
     inMemoryQuestionCommentRepository  = new InMemoryQuestionCommentsRepository()
-    inMemoryQuestionRepository = new InMemoryQuestionRepository()
+    inMemoryQuestionRepository = new InMemoryQuestionRepository(inMemoryQuestionAttachmentsRepository)
     sut = new CommentOnQuestionUseCase(inMemoryQuestionRepository, inMemoryQuestionCommentRepository)
   })
   it ('Should be able to comment on question',async ()=>{

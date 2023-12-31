@@ -1,10 +1,14 @@
 import { PaginationParams } from "@/core/repositories/pagination-params";
 import { Answer } from "@/domain/enterprise/entities/answer";
+import { AnswerAttachmentsRepository } from "@/domain/forum/application/repositories/answer-attachments-repository ";
 import { AnswersRepository } from "@/domain/forum/application/repositories/answers-repository";
 
 
 export class InMemoryAnswersRepository implements AnswersRepository {
+constructor(
+private answerAttachmentsRepository: AnswerAttachmentsRepository
 
+){}
 
   public items: Answer[] = []
 
@@ -32,8 +36,9 @@ export class InMemoryAnswersRepository implements AnswersRepository {
   }
 
   async delete(answer: Answer): Promise<void> {
-    const itemIndex = this.items.findIndex((item) => item.id === answer.id)
-    this.items.splice(itemIndex, 1)
+    const item = this.items.filter((item) => item.id !== answer.id)
+    this.items=item
+    this.answerAttachmentsRepository.deleteManyByAnswerId(answer.id.toString())
   }
 }
 
