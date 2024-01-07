@@ -1,7 +1,7 @@
 
 
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { AnswerAttachment, AnswerAttachmentProps } from "@/domain/enterprise/entities/answer-attachment";
+import { AnswerAttachment, AnswerAttachmentProps } from "@/domain/forum/enterprise/entities/answer-attachment";
 
 
 

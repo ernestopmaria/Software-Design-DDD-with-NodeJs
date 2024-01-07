@@ -1,5 +1,5 @@
 import { PaginationParams } from "@/core/repositories/pagination-params";
-import { Answer } from "@/domain/enterprise/entities/answer";
+import { Answer } from "@/domain/forum/enterprise/entities/answer";
 import { AnswerAttachmentsRepository } from "@/domain/forum/application/repositories/answer-attachments-repository ";
 import { AnswersRepository } from "@/domain/forum/application/repositories/answers-repository";
 
